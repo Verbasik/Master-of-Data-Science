@@ -1,0 +1,61 @@
+digraph "ER Diagram" {
+	node [shape=record]
+	Hub_Questions [label="{
+    Hub_Questions |
+    Question_ID : INTEGER (PK)\l
+    Created_At : DATETIME NOT NULL\l
+}"]
+	Hub_Answers [label="{
+    Hub_Answers |
+    Answer_ID : INTEGER (PK)\l
+    Created_At : DATETIME NOT NULL\l
+}"]
+	Hub_Users [label="{
+    Hub_Users |
+    User_ID : INTEGER (PK)\l
+    Username : TEXT NOT NULL\l
+    Reputation : INTEGER NOT NULL\l
+}"]
+	Sat_Questions_Details [label="{
+    Sat_Questions_Details |
+    Question_ID : INTEGER (FK)\l
+    Title : TEXT NOT NULL\l
+    Body : TEXT NOT NULL\l
+    User_ID : INTEGER NOT NULL\l
+    Tags : TEXT\l
+}"]
+	Sat_Answers_Details [label="{
+    Sat_Answers_Details |
+    Answer_ID : INTEGER (FK)\l
+    Body : TEXT NOT NULL\l
+    User_ID : INTEGER NOT NULL\l
+    Score : INTEGER\l
+}"]
+	Link_Question_Answers [label="{
+    Link_Question_Answers |
+    Link_ID : INTEGER (PK)\l
+    Question_ID : INTEGER (FK) NOT NULL\l
+    Answer_ID : INTEGER (FK) NOT NULL\l
+    Is_Accepted : BOOLEAN\l
+}"]
+	Link_User_Questions [label="{
+    Link_User_Questions |
+    Link_ID : INTEGER (PK)\l
+    User_ID : INTEGER (FK) NOT NULL\l
+    Question_ID : INTEGER (FK) NOT NULL\l
+}"]
+	Link_User_Answers [label="{
+    Link_User_Answers |
+    Link_ID : INTEGER (PK)\l
+    User_ID : INTEGER (FK) NOT NULL\l
+    Answer_ID : INTEGER (FK) NOT NULL\l
+}"]
+	Hub_Questions -> Sat_Questions_Details [label="1-to-1"]
+	Hub_Answers -> Sat_Answers_Details [label="1-to-1"]
+	Hub_Questions -> Link_Question_Answers [label="1-to-many"]
+	Hub_Answers -> Link_Question_Answers [label="1-to-many"]
+	Hub_Users -> Link_User_Questions [label="1-to-many"]
+	Hub_Questions -> Link_User_Questions [label="1-to-many"]
+	Hub_Users -> Link_User_Answers [label="1-to-many"]
+	Hub_Answers -> Link_User_Answers [label="1-to-many"]
+}
