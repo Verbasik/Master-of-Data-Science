@@ -1,0 +1,11 @@
+# OS-specific files
+**/.DS_Store
+
+# Virtual environment
+**/venv/
+
+# Cache files
+**/__pycache__/
+
+# Configuration files
+**/.env

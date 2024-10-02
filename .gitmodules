@@ -1,0 +1,6 @@
+[submodule "01_семестр/System design/Lab Work/01_case/lite"]
+	path = 01_семестр/System design/Lab Work/01_case/lite
+	url = https://github.com/structurizr/lite.git
+[submodule "01_семестр/System design/Lab Work/01_case/ui"]
+	path = 01_семестр/System design/Lab Work/01_case/ui
+	url = https://github.com/structurizr/ui.git
