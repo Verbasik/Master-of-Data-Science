@@ -1,0 +1,386 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2024-10-02T11:59:36Z",
+  "model" : {
+    "people" : [ {
+      "description" : "A user of the project management system",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "User",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Uses",
+        "destinationId" : "3",
+        "id" : "9",
+        "properties" : {
+          "structurizr.dsl.identifier" : "c36174f3-da74-4896-ad18-9f59007069c4"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "2",
+        "id" : "10",
+        "linkedRelationshipId" : "9",
+        "sourceId" : "1",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "4",
+        "id" : "11",
+        "properties" : {
+          "structurizr.dsl.identifier" : "00c4d38d-2b7f-496b-903b-fce910da3e72"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Provides project management functionality via web interface",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "Web Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "webapplication"
+        },
+        "relationships" : [ {
+          "description" : "Reads from and writes to",
+          "destinationId" : "5",
+          "id" : "12",
+          "properties" : {
+            "structurizr.dsl.identifier" : "8393e9c4-525a-42ac-85a1-b3d8385ac4cd"
+          },
+          "sourceId" : "3",
+          "tags" : "Relationship",
+          "technology" : "JDBC"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java, Spring Boot"
+      }, {
+        "description" : "Provides project management functionality via RESTful API",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "API Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "apiapplication"
+        },
+        "relationships" : [ {
+          "description" : "Reads from and writes to",
+          "destinationId" : "5",
+          "id" : "13",
+          "properties" : {
+            "structurizr.dsl.identifier" : "cb27a746-dceb-4f0e-8798-4f136927106e"
+          },
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "JDBC"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java, Spring Boot"
+      }, {
+        "components" : [ {
+          "description" : "Project Entity",
+          "documentation" : { },
+          "id" : "6",
+          "name" : "projectEntity",
+          "properties" : {
+            "structurizr.dsl.identifier" : "c253043e-b262-44c4-8005-c16cb9b9c543"
+          },
+          "tags" : "Element,Component,JPA Entity",
+          "technology" : "Stores project information"
+        }, {
+          "description" : "Task Entity",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "taskEntity",
+          "properties" : {
+            "structurizr.dsl.identifier" : "6958d78e-ca27-4053-bbdc-5fa62a5a1ed2"
+          },
+          "tags" : "Element,Component,JPA Entity",
+          "technology" : "Stores task information"
+        }, {
+          "description" : "User Entity",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "userEntity",
+          "properties" : {
+            "structurizr.dsl.identifier" : "efbfcf52-0b21-49ad-846b-54b916ec84a7"
+          },
+          "tags" : "Element,Component,JPA Entity",
+          "technology" : "Stores user information"
+        } ],
+        "description" : "Stores user, project, and task information",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "database"
+        },
+        "tags" : "Element,Container",
+        "technology" : "PostgreSQL"
+      } ],
+      "description" : "Allows users to manage projects and tasks",
+      "documentation" : { },
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Project Management System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "projectmanagementsystem"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Name",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKICAgIG1vZGVsIHsKICAgICAgICB1c2VyID0gcGVyc29uICJVc2VyIiAiQSB1c2VyIG9mIHRoZSBwcm9qZWN0IG1hbmFnZW1lbnQgc3lzdGVtIgogICAgICAgIAogICAgICAgIHByb2plY3RNYW5hZ2VtZW50U3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIlByb2plY3QgTWFuYWdlbWVudCBTeXN0ZW0iICJBbGxvd3MgdXNlcnMgdG8gbWFuYWdlIHByb2plY3RzIGFuZCB0YXNrcyIgewogICAgICAgICAgICB3ZWJBcHBsaWNhdGlvbiA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiAiUHJvdmlkZXMgcHJvamVjdCBtYW5hZ2VtZW50IGZ1bmN0aW9uYWxpdHkgdmlhIHdlYiBpbnRlcmZhY2UiICJKYXZhLCBTcHJpbmcgQm9vdCIKICAgICAgICAgICAgYXBpQXBwbGljYXRpb24gPSBjb250YWluZXIgIkFQSSBBcHBsaWNhdGlvbiIgIlByb3ZpZGVzIHByb2plY3QgbWFuYWdlbWVudCBmdW5jdGlvbmFsaXR5IHZpYSBSRVNUZnVsIEFQSSIgIkphdmEsIFNwcmluZyBCb290IgogICAgICAgICAgICBkYXRhYmFzZSA9IGNvbnRhaW5lciAiRGF0YWJhc2UiICJTdG9yZXMgdXNlciwgcHJvamVjdCwgYW5kIHRhc2sgaW5mb3JtYXRpb24iICJQb3N0Z3JlU1FMIiB7CiAgICAgICAgICAgICAgICBjb21wb25lbnQgcHJvamVjdEVudGl0eSAiUHJvamVjdCBFbnRpdHkiICJTdG9yZXMgcHJvamVjdCBpbmZvcm1hdGlvbiIgIkpQQSBFbnRpdHkiCiAgICAgICAgICAgICAgICBjb21wb25lbnQgdGFza0VudGl0eSAiVGFzayBFbnRpdHkiICJTdG9yZXMgdGFzayBpbmZvcm1hdGlvbiIgIkpQQSBFbnRpdHkiCiAgICAgICAgICAgICAgICBjb21wb25lbnQgdXNlckVudGl0eSAiVXNlciBFbnRpdHkiICJTdG9yZXMgdXNlciBpbmZvcm1hdGlvbiIgIkpQQSBFbnRpdHkiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIHVzZXIgLT4gd2ViQXBwbGljYXRpb24gIlVzZXMiICJIVFRQUyIKICAgICAgICB1c2VyIC0+IGFwaUFwcGxpY2F0aW9uICJVc2VzIiAiSFRUUFMiCiAgICAgICAgd2ViQXBwbGljYXRpb24gLT4gZGF0YWJhc2UgIlJlYWRzIGZyb20gYW5kIHdyaXRlcyB0byIgIkpEQkMiCiAgICAgICAgYXBpQXBwbGljYXRpb24gLT4gZGF0YWJhc2UgIlJlYWRzIGZyb20gYW5kIHdyaXRlcyB0byIgIkpEQkMiCiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgcHJvamVjdE1hbmFnZW1lbnRTeXN0ZW0gIlN5c3RlbUNvbnRleHQiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBwcm9qZWN0TWFuYWdlbWVudFN5c3RlbSAiQ29udGFpbmVycyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGRhdGFiYXNlICJEYXRhYmFzZUNvbXBvbmVudHMiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGR5bmFtaWMgcHJvamVjdE1hbmFnZW1lbnRTeXN0ZW0gIkNyZWF0ZVByb2plY3RBbmRUYXNrIiAiSWxsdXN0cmF0ZXMgaG93IGEgdXNlciBjcmVhdGVzIGEgbmV3IHByb2plY3QgYW5kIGFkZHMgYSB0YXNrIiB7CiAgICAgICAgICAgIHVzZXIgLT4gYXBpQXBwbGljYXRpb24gIlBPU1QgL2FwaS9wcm9qZWN0cyIKICAgICAgICAgICAgYXBpQXBwbGljYXRpb24gLT4gZGF0YWJhc2UgIkluc2VydCBuZXcgcHJvamVjdCIKICAgICAgICAgICAgYXBpQXBwbGljYXRpb24gLT4gdXNlciAiUmV0dXJuIHByb2plY3QgZGV0YWlscyIKICAgICAgICAgICAgdXNlciAtPiBhcGlBcHBsaWNhdGlvbiAiUE9TVCAvYXBpL3Byb2plY3RzL3twcm9qZWN0SWR9L3Rhc2tzIgogICAgICAgICAgICBhcGlBcHBsaWNhdGlvbiAtPiBkYXRhYmFzZSAiSW5zZXJ0IG5ldyB0YXNrIgogICAgICAgICAgICBhcGlBcHBsaWNhdGlvbiAtPiB1c2VyICJSZXR1cm4gdGFzayBkZXRhaWxzIgogICAgICAgICAgICB1c2VyIC0+IGFwaUFwcGxpY2F0aW9uICJQVVQgL2FwaS90YXNrcy97dGFza0lkfS9hc3NpZ25lZSIKICAgICAgICAgICAgYXBpQXBwbGljYXRpb24gLT4gZGF0YWJhc2UgIlVwZGF0ZSB0YXNrIGFzc2lnbmVlIgogICAgICAgICAgICBhcGlBcHBsaWNhdGlvbiAtPiB1c2VyICJSZXR1cm4gdXBkYXRlZCB0YXNrIGRldGFpbHMiCiAgICAgICAgfQogICAgICAgIAogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29udGFpbmVyIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM0MzhkZDUKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgY3lsaW5kZXIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb21wb25lbnQiIHsKICAgICAgICAgICAgICAgIHNoYXBlIENvbXBvbmVudAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "5",
+      "dimensions" : {
+        "height" : 2011,
+        "width" : 1037
+      },
+      "elements" : [ {
+        "id" : "6",
+        "x" : 293,
+        "y" : 1419
+      }, {
+        "id" : "7",
+        "x" : 293,
+        "y" : 819
+      }, {
+        "id" : "8",
+        "x" : 293,
+        "y" : 219
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "DatabaseComponents",
+      "order" : 3
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "SystemContext",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : {
+        "elements" : [ {
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "shape" : "Component",
+          "tag" : "Component"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 1411,
+        "width" : 2320
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 200,
+        "y" : 469
+      }, {
+        "id" : "3",
+        "x" : 900,
+        "y" : 819
+      }, {
+        "id" : "4",
+        "x" : 900,
+        "y" : 219
+      }, {
+        "id" : "5",
+        "x" : 1650,
+        "y" : 519
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "9"
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "dynamicViews" : [ {
+      "description" : "Illustrates how a user creates a new project and adds a task",
+      "dimensions" : {
+        "height" : 1748,
+        "width" : 2480
+      },
+      "elementId" : "2",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "CreateProjectAndTask",
+      "order" : 4,
+      "paperSize" : "A5_Landscape",
+      "relationships" : [ {
+        "description" : "POST /api/projects",
+        "id" : "11",
+        "order" : "1",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 346,
+          "y" : 242
+        } ]
+      }, {
+        "description" : "Insert new project",
+        "id" : "13",
+        "order" : "2",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 150
+        } ]
+      }, {
+        "description" : "Return project details",
+        "id" : "11",
+        "order" : "3",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 78,
+          "y" : 107
+        } ]
+      }, {
+        "description" : "POST /api/projects/{projectId}/tasks",
+        "id" : "11",
+        "order" : "4",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 480,
+          "y" : 309
+        } ]
+      }, {
+        "description" : "Insert new task",
+        "id" : "13",
+        "order" : "5",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 0
+        } ]
+      }, {
+        "description" : "Return task details",
+        "id" : "11",
+        "order" : "6",
+        "response" : true,
+        "vertices" : [ {
+          "x" : -55,
+          "y" : 40
+        } ]
+      }, {
+        "description" : "PUT /api/tasks/{taskId}/assignee",
+        "id" : "11",
+        "order" : "7",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 614,
+          "y" : 376
+        } ]
+      }, {
+        "description" : "Update task assignee",
+        "id" : "13",
+        "order" : "8",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 300
+        } ]
+      }, {
+        "description" : "Return updated task details",
+        "id" : "11",
+        "order" : "9",
+        "response" : true,
+        "vertices" : [ {
+          "x" : -189,
+          "y" : -26
+        } ]
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 800,
+        "width" : 1550
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 199,
+        "y" : 200
+      }, {
+        "id" : "2",
+        "x" : 899,
+        "y" : 250
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "10"
+      } ],
+      "softwareSystemId" : "2"
+    } ]
+  }
+}
