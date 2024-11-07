@@ -1,0 +1,85 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  postgres-db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: project_management
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d project_management"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  user-service:
+    build:
+      context: ./services
+      dockerfile: Dockerfile
+      target: user-service
+    container_name: user-service
+    environment:
+      DATABASE_URL: postgresql://admin:secret@postgres-db:5432/project_management
+      SECRET_KEY: your-secret-key
+      USER_SERVICE_URL: http://user-service:8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  project-service:
+    build:
+      context: ./services
+      dockerfile: Dockerfile
+      target: project-service
+    container_name: project-service
+    environment:
+      DATABASE_URL: postgresql://admin:secret@postgres-db:5432/project_management
+      SECRET_KEY: your-secret-key
+      USER_SERVICE_URL: http://user-service:8000
+      PROJECT_SERVICE_URL: http://project-service:8001
+    ports:
+      - "8001:8001"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+    restart: unless-stopped
+
+  task-service:
+    build:
+      context: ./services
+      dockerfile: Dockerfile
+      target: task-service
+    container_name: task-service
+    environment:
+      DATABASE_URL: postgresql://admin:secret@postgres-db:5432/project_management
+      SECRET_KEY: your-secret-key
+      USER_SERVICE_URL: http://user-service:8000
+      PROJECT_SERVICE_URL: http://project-service:8001
+      TASK_SERVICE_URL: http://task-service:8002
+    ports:
+      - "8002:8002"
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+      user-service:
+        condition: service_started
+      project-service:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
