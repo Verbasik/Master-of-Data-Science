@@ -1,0 +1,14 @@
+Test Results - Wed Nov 20 16:46:06 MSK 2024
+===================
+Testing environment:
+- Host: localhost
+- Port: 5432
+- Database: project_management
+- User: admin
+===================
+User creation response: {"username":"testuser_1732110366","email":"test_1732110366@example.com","id":"90b750b7-b089-443a-ba91-c394bc7806b4","is_active":true,"created_at":"2024-11-20T13:46:06.995682Z","updated_at":"2024-11-20T13:46:06.995690Z"}
+Token received: eyJhbGciOiJIUzI1NiIs...
+Project creation response: {"name":"Test Project 1732110367","description":"Test project description","id":"23d03c6d-6e04-4fec-bda5-79510836854a","owner_id":"90b750b7-b089-443a-ba91-c394bc7806b4","created_at":"2024-11-20T13:46:07.392923Z","updated_at":"2024-11-20T13:46:07.392923Z","task_count":null}
+Task creation response: {"title":"Test Task 1732110367","description":"Test task description","priority":"medium","id":"12f5d84b-7e04-48d6-8a9f-b348f8cc72a0","status":"created","project_id":"23d03c6d-6e04-4fec-bda5-79510836854a","creator_id":"90b750b7-b089-443a-ba91-c394bc7806b4","assignee_id":null,"created_at":"2024-11-20T13:46:07.514828Z","updated_at":"2024-11-20T13:46:07.514828Z"}
+Project update response: {"name":"Updated Project 1732110367","description":"Updated project description","id":"23d03c6d-6e04-4fec-bda5-79510836854a","owner_id":"90b750b7-b089-443a-ba91-c394bc7806b4","created_at":"2024-11-20T13:46:07.392923Z","updated_at":"2024-11-20T13:46:07.610772Z","task_count":null}
+Task update response: {"title":"Updated Task 1732110367","description":"Updated task description","priority":"medium","id":"12f5d84b-7e04-48d6-8a9f-b348f8cc72a0","status":"in_progress","project_id":"23d03c6d-6e04-4fec-bda5-79510836854a","creator_id":"90b750b7-b089-443a-ba91-c394bc7806b4","assignee_id":null,"created_at":"2024-11-20T13:46:07.514828Z","updated_at":"2024-11-20T13:46:07.657304Z"}
