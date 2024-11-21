@@ -37,13 +37,20 @@ Project Management System - это микросервисная система �
 
 3. **Task Service** (Порт 8002)
    - Управление задачами
-   - Статусы и приоритеты
-   - Интеграция с Project Service
+   - Статусы: CREATED, IN_PROGRESS, ON_REVIEW, COMPLETED
+   - Приоритеты: LOW, MEDIUM, HIGH
+   - Интеграция с MongoDB
+   - JWT аутентификация
 
 4. **PostgreSQL** (Порт 5432)
    - Хранение данных всех сервисов
    - Миграции через Alembic
    - Общая схема данных
+
+5. **MongoDB** (Порт 27017)
+   - Хранение данных Task Service
+   - Асинхронные операции
+   - Поддержка UUID
 
 ### Структура проекта
 ```
@@ -64,6 +71,7 @@ project-management-system/
 ### Предварительные требования
 - Docker и Docker Compose
 - PostgreSQL 13+
+- MongoDB 4.4+
 - Python 3.12+
 - Bash (для тестирования)
 
@@ -78,11 +86,29 @@ cd project-management-system
 2. Настройка переменных окружения:
 ```bash
 # .env файл в корне проекта
-DATABASE_URL=postgresql://admin:secret@postgres-db:5432/project_management
-SECRET_KEY=your-secret-key
-USER_SERVICE_URL=http://user-service:8000
-PROJECT_SERVICE_URL=http://project-service:8001
-TASK_SERVICE_URL=http://task-service:8002
+# Database Settings
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=secret
+POSTGRES_DB=project_management
+DATABASE_URL=postgresql://admin:secret@localhost:5432/project_management
+
+# MongoDB Settings
+MONGO_USER=mongoadmin
+MONGO_PASSWORD=mongopass
+MONGO_DB=task_service
+MONGODB_URL=mongodb://mongoadmin:mongopass@mongodb:27017/task_service?authSource=admin
+MONGODB_DB_NAME=task_service
+
+# Application Settings
+SECRET_KEY=your-secret-key-here
+DEBUG=false
+ENVIRONMENT=production
+BUILD_ENV=production
+
+# Service URLs (internal)
+USER_SERVICE_URL=http://localhost:8000
+PROJECT_SERVICE_URL=http://localhost:8001
+TASK_SERVICE_URL=http://localhost:8002
 ```
 
 3. Запуск через Docker Compose:
@@ -104,14 +130,34 @@ docker compose logs -f
 ### Автоматизированное тестирование
 Система включает скрипт комплексного тестирования `test_services.sh`, который проверяет:
 
-1. Конфигурацию окружения
-2. Доступность сервисов
-3. Подключение к PostgreSQL
-4. Структуру базы данных
-5. Создание и аутентификацию пользователей
-6. Операции с проектами
-7. Управление задачами
-8. Каскадное удаление
+### 1. Проверка окружения
+- Валидация .env файла
+- Проверка обязательных переменных
+- Настройка подключений к БД
+
+### 2. Проверка сервисов
+- User Service (порт 8000)
+- Project Service (порт 8001)
+- Task Service (порт 8002)
+- Эндпоинт /health для каждого сервиса
+
+### 3. Проверка PostgreSQL
+- Подключение к БД
+- Конфигурация подключения
+- Валидация структуры данных
+
+### 4. Проверка MongoDB
+- Подключение к БД
+- Валидация индексов:
+  - Одиночные: project_id, creator_id, assignee_id, status, priority, created_at
+  - Составной: {project_id: 1, status: 1, priority: -1}
+
+### 5. Функциональное тестирование
+- Создание пользователя
+- JWT аутентификация
+- Создание проекта
+- Создание и верификация задачи
+- Проверка сохранения в MongoDB
 
 ```bash
 # Запуск тестов
@@ -170,6 +216,7 @@ psql -c "SELECT * FROM pg_stat_activity;"
 - Python 3.12+
 - Poetry или pip
 - PostgreSQL 13+
+- MongoDB 4.4+
 - Docker и Docker Compose
 
 ### Рекомендации по разработке
