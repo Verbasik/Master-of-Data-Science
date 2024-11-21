@@ -1,0 +1,165 @@
+<div class="form-inline <c:if test="${embed eq true}">hidden</c:if>" style="margin-bottom: 8px">
+    <div class="form-group">
+        <div class="btn-group">
+            <c:if test="${structurizrConfiguration.type ne 'lite'}">
+            <c:choose>
+                <c:when test="${authenticated eq true}">
+                    <button id="homeButton" class="btn btn-default" title="Return to dashboard"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/house.svg" class="icon-btn" /></button>
+                    <script nonce="${scriptNonce}">$('#homeButton').click(function() { window.location.href='/dashboard'; });</script>
+                </c:when>
+                <c:otherwise>
+                    <button id="homeButton" class="btn btn-default" title="Return to home page"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/house.svg" class="icon-btn" /></button>
+                    <script nonce="${scriptNonce}">$('#homeButton').click(function() { window.location.href='/'; });</script>
+                </c:otherwise>
+            </c:choose>
+            <button id="workspaceSummaryButton" class="btn btn-default" title="Workspace summary"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/folder.svg" class="icon-btn" /></button>
+            <script nonce="${scriptNonce}">$('#workspaceSummaryButton').click(function() { window.location.href='<c:out value="${urlPrefix}" /><c:out value="${urlSuffix}" escapeXml="false" />'; });</script>
+            </c:if>
+            <c:if test="${structurizrConfiguration.type eq 'lite'}">
+            <button id="homeButton" class="btn btn-default" title="Home"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/house.svg" class="icon-btn" /></button>
+            <script nonce="${scriptNonce}">$('#homeButton').click(function() { window.location.href='/'; });</script>
+            </c:if>
+            <button id="documentationButton" class="btn btn-default" title="Documentation"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/book.svg" class="icon-btn" /></button>
+            <button id="decisionLogButton" class="btn btn-default" title="Decision log"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/journal-text.svg" class="icon-btn" /></button>
+            <button id="backButton" class="btn btn-default backButton" title="Go back to the last viewed diagram [b]"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/arrow-90deg-left.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#documentationButton').click(function() { openDocumentation(); });
+            $('#decisionLogButton').click(function() { openDecisions(); });
+            $('#backButton').click(function() { back(); });
+        </script>
+
+        <div class="modelViewButtons btn-group">
+            <button id="diagramKeyButton" class="btn btn-default" title="Diagram key [i]"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/info-circle.svg" class="icon-btn" /></button>
+            <button id="diagramTooltipOnButton" class="btn btn-default diagramTooltipOnButton" title="Diagram tooltips on [t]"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/chat-square-text.svg" class="icon-btn" /></button>
+            <button id="diagramTooltipOffButton" class="btn btn-default hidden diagramTooltipOffButton" title="Diagram tooltips off [t]"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/chat-square-text-fill.svg" class="icon-btn" /></button>
+            <button id="tagsOnButton" class="btn btn-default"  title="Tags"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/tags.svg" class="icon-btn" /></button>
+            <button id="tagsOffButton" class="btn btn-default hidden" title="Tags"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/tags-fill.svg" class="icon-btn" /></button>
+            <button id="perspectivesOnButton" class="btn btn-default hidden" title="Perspectives"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/binoculars.svg" class="icon-btn" /></button>
+            <button id="perspectivesOffButton" class="btn btn-default hidden" title="Perspectives"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/binoculars-fill.svg" class="icon-btn" /></button>
+            <button id="showDiagramScopeOnButton" class="btn btn-default hidden" title="Toggle diagram scope on"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/pin-map.svg" class="icon-btn" /></button>
+            <button id="showDiagramScopeOffButton" class="btn btn-default hidden" title="Toggle diagram scope off"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/pin-map-fill.svg" class="icon-btn" /></button>
+            <button id="healthOnButton" class="btn btn-default hidden" title="Health checks"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/heart-pulse.svg" class="icon-btn" /></button>
+            <button id="healthOffButton" class="btn btn-default hidden" title="Health checks"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/heart-pulse-fill.svg" class="icon-btn" /></button>
+            <button id="explorationsButton" class="btn btn-default hidden" title="Explore"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/diagram-3.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#diagramKeyButton').click(function() { showKey(); });
+            $('#diagramTooltipOnButton').click(function() { toggleTooltip(); });
+            $('#diagramTooltipOffButton').click(function() { toggleTooltip(); });
+            $('#tagsOnButton').click(function() { openTagsModal(); });
+            $('#tagsOffButton').click(function() { openTagsModal(); });
+            $('#perspectivesOnButton').click(function() { openPerspectivesModal(); });
+            $('#perspectivesOffButton').click(function() { openPerspectivesModal(); });
+            $('#showDiagramScopeOnButton').click(function() { showDiagramScope(true); });
+            $('#showDiagramScopeOffButton').click(function() { showDiagramScope(false); });
+            $('#healthOnButton').click(function() { showHealth(true); });
+            $('#healthOffButton').click(function() { showHealth(false); });
+        </script>
+
+        <div class="btn-group">
+            <button id="exportToPNGButton" class="btn btn-default" title="Export diagram and key/legend to PNG"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/filetype-png.svg" class="icon-btn" /></button>
+            <button id="exportToSVGButton" class="btn btn-default" title="Export diagram and key to SVG"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/filetype-svg.svg" class="icon-btn" /></button>
+
+            <c:if test="${structurizrConfiguration.type ne 'lite'}">
+            <button id="embedDiagramButton" class="btn btn-default" title="Embed"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/code-slash.svg" class="icon-btn" /></button>
+            <script nonce="${scriptNonce}">$('#embedDiagramButton').click(function() { openEmbedModal(); });</script>
+            </c:if>
+
+            <c:if test="${not empty sharingUrlPrefix}">
+            <button id="shareButton" class="btn btn-default" title="Share"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/share.svg" class="icon-btn" /></button>
+            <script nonce="${scriptNonce}">$('#shareButton').click(function() { window.open('${sharingUrlPrefix}/diagrams#' + structurizr.diagram.getCurrentViewOrFilter().key); });</script>
+            </c:if>
+            <c:if test="${createReviews eq true}">
+            <button id="createReviewButton" class="btn btn-default" title="Create review"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/chat.svg" class="icon-btn" /></button>
+            <script nonce="${scriptNonce}">$('#createReviewButton').click(function() { createReview(); });</script>
+            </c:if>
+            <button id="helpButton" class="btn btn-default" title="Help"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/question-circle.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#exportToPNGButton').click(function() { exportToPNG(); });
+            $('#exportToSVGButton').click(function() { exportToSVG(); });
+            $('#helpButton').click(function() { window.open('https://docs.structurizr.com/ui/diagrams'); });
+        </script>
+
+        <c:if test="${workspace.editable}">
+        <div class="btn-group">
+            <button id="saveButton" class="btn btn-default" title="Save workspace" disabled="true" style="text-shadow: none"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/folder-check.svg" class="icon-btn icon-white" /></button>
+        </div>
+        <script nonce="${scriptNonce}">$('#saveButton').click(function() { saveWorkspace(); });</script>
+        </c:if>
+
+        <c:if test="${includeEditButton eq true}">
+        <div id="editDiagramButton" class="btn-group">
+            <button class="btn btn-primary" title="Edit diagram"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/pencil.svg" class="icon-btn icon-white" /></button>
+        </div>
+        <script nonce="${scriptNonce}">$('#editDiagramButton').click(function() { window.location.href='/workspace/${workspace.id}/diagram-editor<c:out value="${urlSuffix}" escapeXml="false" />#' + window.location.hash.substring(1); });</script>
+        </c:if>
+    </div>
+</div>
+
+<c:if test="${workspace.editable}">
+<div class="form-inline">
+    <div class="form-group">
+        <span id="diagramEditButtons">
+
+        <select id="pageSize" class="form-control" style="font-size: 12px;">
+            <option id="none" value="none">Canvas size - Custom</option>
+            <c:forEach var="paperSize" items="${paperSizes}">
+            <option id="${paperSize}" value="${paperSize.width}x${paperSize.height} %>">${paperSize.name} - ${paperSize.orientation}</option>
+            </c:forEach>
+        </select>
+
+        <div class="btn-group">
+            <button id="pageSizeDecreaseButton" class="btn btn-default" title="Decrease canvas size"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/file-earmark-minus.svg" class="icon-btn" /></button>
+            <button id="pageSizeAutoButton" class="btn btn-default" title="Auto canvas size"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/file-earmark-diff.svg" class="icon-btn" /></button>
+            <button id="pageSizeIncreaseButton" class="btn btn-default" title="Increase canvas size"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/file-earmark-plus.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#pageSizeDecreaseButton').click(function(event) { structurizr.diagram.decreasePageSize(event); });
+            $('#pageSizeAutoButton').click(function() { structurizr.diagram.autoPageSize(); });
+            $('#pageSizeIncreaseButton').click(function(event) { structurizr.diagram.increasePageSize(event); });
+        </script>
+
+        <div class="btn-group">
+            <button id="alignSelectedElementsLeftButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align left"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-start.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsVerticalCentreButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align centre"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-center.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsRightButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align right"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-end.svg" class="icon-btn" /></button>
+            <button id="distributeSelectedElementsHorizontallyButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Distribute horizontally"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/distribute-horizontal.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#alignSelectedElementsLeftButton').click(function() { structurizr.diagram.alignSelectedElementsLeft(); });
+            $('#alignSelectedElementsVerticalCentreButton').click(function() { structurizr.diagram.alignSelectedElementsVerticalCentre(); });
+            $('#alignSelectedElementsRightButton').click(function() { structurizr.diagram.alignSelectedElementsRight(); });
+            $('#distributeSelectedElementsHorizontallyButton').click(function() { structurizr.diagram.distributeSelectedElementsHorizontally(); });
+        </script>
+
+        <div class="btn-group">
+            <button id="alignSelectedElementsTopButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align top"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-top.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsHorizontalCentreButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align middle"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-middle.svg" class="icon-btn" /></button>
+            <button id="alignSelectedElementsBottomButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Align bottom"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/align-bottom.svg" class="icon-btn" /></button>
+            <button id="distributeSelectedElementsVerticallyButton" class="btn btn-default multipleElementsSelectedButton" disabled="disabled" title="Distribute vertically"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/distribute-vertical.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#alignSelectedElementsTopButton').click(function() { structurizr.diagram.alignSelectedElementsTop(); });
+            $('#alignSelectedElementsHorizontalCentreButton').click(function() { structurizr.diagram.alignSelectedElementsHorizontalCentre(); });
+            $('#alignSelectedElementsBottomButton').click(function() { structurizr.diagram.alignSelectedElementsBottom(); });
+            $('#distributeSelectedElementsVerticallyButton').click(function() { structurizr.diagram.distributeSelectedElementsVertically(); });
+        </script>
+
+        <div class="btn-group">
+            <button id="centreDiagramOrSelectedElementsButton" class="btn btn-default" title="Centre diagram or selected elements"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/grid.svg" class="icon-btn" /></button>
+            <button id="openAutoLayoutModalButton" class="btn btn-default" id="autoLayoutButton" title="Auto-layout"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/magic.svg" class="icon-btn" /></button>
+            <button id="undoButton" class="btn btn-default" id="undoButton" disabled="disabled" title="Undo layout changes [u]"><img src="${structurizrConfiguration.cdnUrl}/bootstrap-icons/arrow-counterclockwise.svg" class="icon-btn" /></button>
+        </div>
+        <script nonce="${scriptNonce}">
+            $('#centreDiagramOrSelectedElementsButton').click(function() { structurizr.diagram.centreDiagramOrSelectedElements(); });
+            $('#openAutoLayoutModalButton').click(function() { openAutoLayoutModal(); });
+            $('#undoButton').click(function() { structurizr.diagram.undo(); });
+        </script>
+
+        </span>
+        <span id="diagramNotEditableMessage" class="smaller hidden" style="margin-left: 10px">This diagram is not editable because automatic layout is enabled - see <a href="https://docs.structurizr.com/ui/diagrams/automatic-layout" target="_blank">Help - Automatic layout</a> for more details.</span>
+    </div>
+</div>
+</c:if>
