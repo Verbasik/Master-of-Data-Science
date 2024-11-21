@@ -1,0 +1,83 @@
+<script nonce="${scriptNonce}">
+    function runGraphvizForView(view, callback) {
+        if (view.automaticLayout.applied !== true) {
+            const url = '${structurizrConfiguration.graphvizUrl}?view=' + view.key;
+            runGraphviz(url, function() {
+                view.automaticLayout.applied = true;
+                callback();
+            });
+        } else {
+            if (callback) {
+                callback();
+            }
+        }
+    }
+
+    function runGraphvizWithParameters(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, linkVertices, margin, resize, callback) {
+        const view = structurizr.diagram.getCurrentView();
+        const url = '${structurizrConfiguration.graphvizUrl}?view=' + view.key + '&resizePaper=' + resize + '&rankDirection=' + rankDirection + '&rankSeparation=' + rankSeparation + '&nodeSeparation=' + nodeSeparation + '&margin=' + margin
+
+        runGraphviz(url, callback);
+    }
+
+    function runGraphviz(url, callback) {
+        if (${workspace.clientEncrypted} === true) {
+            console.log('Graphviz cannot be used on client-side encrypted workspaces - skipping');
+            if (callback) {
+                callback();
+            }
+        } else {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                contentType: 'application/json; charset=UTF-8',
+                cache: false,
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8'
+                },
+                dataType: 'json',
+                data: getMinimalJson()
+            })
+            .done(function (data, textStatus, jqXHR) {
+                if (data.views) {
+                    structurizr.workspace.copyLayoutFrom(data.views);
+                }
+                if (callback) {
+                    callback();
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                progressMessage.hide();
+
+                console.log('Automatic layout failed');
+                logError(jqXHR, textStatus, errorThrown);
+            });
+        }
+    }
+
+    function getMinimalJson() {
+        const workspace = structurizr.workspace.getJson();
+
+        if (workspace.properties) {
+            delete workspace.properties['structurizr.dsl'];
+        }
+        delete workspace.documentation;
+
+        if (workspace.model.softwareSystems) {
+            workspace.model.softwareSystems.forEach(function (softwareSystem) {
+                delete softwareSystem.documentation;
+
+                if (softwareSystem.containers) {
+                    softwareSystem.containers.forEach(function (container) {
+                        delete container.documentation;
+                    });
+                }
+            });
+        }
+
+        // and copy across the current layout information
+        workspace.views = structurizr.workspace.views;
+
+        return JSON.stringify(workspace, null, '    ');
+    }
+</script>

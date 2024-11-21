@@ -1,0 +1,442 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedDate" : "2024-10-09T13:46:12Z",
+  "model" : {
+    "people" : [ {
+      "description" : "Пользователь системы управления проектами",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Пользователь",
+      "properties" : {
+        "structurizr.dsl.identifier" : "user"
+      },
+      "relationships" : [ {
+        "description" : "Использует для управления проектами",
+        "destinationId" : "3",
+        "id" : "9",
+        "properties" : {
+          "structurizr.dsl.identifier" : "c90bbaf7-986f-49ce-9dd0-bb8893ff689d"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Использует для управления проектами",
+        "destinationId" : "2",
+        "id" : "10",
+        "linkedRelationshipId" : "9",
+        "sourceId" : "1",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Использует для управления задачами",
+        "destinationId" : "4",
+        "id" : "11",
+        "properties" : {
+          "structurizr.dsl.identifier" : "25452df2-6a92-47ed-928d-9fa446c601fe"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      }, {
+        "description" : "Использует для управления аккаунтом",
+        "destinationId" : "5",
+        "id" : "12",
+        "properties" : {
+          "structurizr.dsl.identifier" : "b0c92d0b-c8c9-46f9-ba0f-0c9f9e21f7c0"
+        },
+        "sourceId" : "1",
+        "tags" : "Relationship",
+        "technology" : "HTTPS"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "description" : "Управляет проектами",
+        "documentation" : { },
+        "id" : "3",
+        "name" : "Project Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "projectservice"
+        },
+        "relationships" : [ {
+          "description" : "Читает и записывает данные о проектах",
+          "destinationId" : "6",
+          "id" : "13",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ad723b8c-3403-435e-816a-93edc4e5b855"
+          },
+          "sourceId" : "3",
+          "tags" : "Relationship",
+          "technology" : "JDBC"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java, Spring Boot"
+      }, {
+        "description" : "Управляет задачами",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Task Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "taskservice"
+        },
+        "relationships" : [ {
+          "description" : "Читает и записывает данные о задачах",
+          "destinationId" : "7",
+          "id" : "14",
+          "properties" : {
+            "structurizr.dsl.identifier" : "60fb93f2-0ad7-4937-91ef-ad08c2487883"
+          },
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "JDBC"
+        }, {
+          "description" : "Получает данные проектов",
+          "destinationId" : "3",
+          "id" : "16",
+          "properties" : {
+            "structurizr.dsl.identifier" : "fccc2b65-1a75-4d54-ae46-e5b3705995b5"
+          },
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "REST API"
+        }, {
+          "description" : "Получает данные пользователей",
+          "destinationId" : "5",
+          "id" : "17",
+          "properties" : {
+            "structurizr.dsl.identifier" : "60e1f933-f85e-4169-a651-925ce03cb786"
+          },
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "REST API"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java, Spring Boot"
+      }, {
+        "description" : "Управляет пользователями",
+        "documentation" : { },
+        "id" : "5",
+        "name" : "User Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "userservice"
+        },
+        "relationships" : [ {
+          "description" : "Читает и записывает данные о пользователях",
+          "destinationId" : "8",
+          "id" : "15",
+          "properties" : {
+            "structurizr.dsl.identifier" : "9366a770-4dc7-44fa-89b8-0e09084269c3"
+          },
+          "sourceId" : "5",
+          "tags" : "Relationship",
+          "technology" : "JDBC"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java, Spring Boot"
+      }, {
+        "description" : "Хранит информацию о проектах",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "Project Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "projectdatabase"
+        },
+        "tags" : "Element,Container",
+        "technology" : "PostgreSQL"
+      }, {
+        "description" : "Хранит информацию о задачах",
+        "documentation" : { },
+        "id" : "7",
+        "name" : "Task Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "taskdatabase"
+        },
+        "tags" : "Element,Container",
+        "technology" : "PostgreSQL"
+      }, {
+        "description" : "Хранит информацию о пользователях",
+        "documentation" : { },
+        "id" : "8",
+        "name" : "User Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "userdatabase"
+        },
+        "tags" : "Element,Container",
+        "technology" : "PostgreSQL"
+      } ],
+      "description" : "Позволяет управлять проектами, задачами и пользователями",
+      "documentation" : { },
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Система управления проектами",
+      "properties" : {
+        "structurizr.dsl.identifier" : "projectmanagementsystem"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Name",
+  "properties" : {
+    "structurizr.dsl" : "Ly8g0J7Qv9GA0LXQtNC10LvRj9C10Lwg0YDQsNCx0L7Rh9C10LUg0L/RgNC+0YHRgtGA0LDQvdGB0YLQstC+INGB0LjRgdGC0LXQvNGLINGD0L/RgNCw0LLQu9C10L3QuNGPINC/0YDQvtC10LrRgtCw0LzQuAp3b3Jrc3BhY2UgewogICAgLy8g0JzQvtC00LXQu9GMINGB0LjRgdGC0LXQvNGLLCDQstC60LvRjtGH0LDRjtGJ0LDRjyDQsiDRgdC10LHRjyDRjdC70LXQvNC10L3RgtGLINC4INC40YUg0LLQt9Cw0LjQvNC+0LTQtdC50YHRgtCy0LjRjwogICAgbW9kZWwgewogICAgICAgIC8vINCe0L/RgNC10LTQtdC70Y/QtdC8INGA0L7Qu9GMINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvRjyDRgdC40YHRgtC10LzRiwogICAgICAgIHVzZXIgPSBwZXJzb24gItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCIgItCf0L7Qu9GM0LfQvtCy0LDRgtC10LvRjCDRgdC40YHRgtC10LzRiyDRg9C/0YDQsNCy0LvQtdC90LjRjyDQv9GA0L7QtdC60YLQsNC80LgiCgogICAgICAgIC8vINCe0L/RgNC10LTQtdC70Y/QtdC8INC/0YDQvtCz0YDQsNC80LzQvdGD0Y4g0YHQuNGB0YLQtdC80YMgItCh0LjRgdGC0LXQvNCwINGD0L/RgNCw0LLQu9C10L3QuNGPINC/0YDQvtC10LrRgtCw0LzQuCIKICAgICAgICBwcm9qZWN0TWFuYWdlbWVudFN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICLQodC40YHRgtC10LzQsCDRg9C/0YDQsNCy0LvQtdC90LjRjyDQv9GA0L7QtdC60YLQsNC80LgiICLQn9C+0LfQstC+0LvRj9C10YIg0YPQv9GA0LDQstC70Y/RgtGMINC/0YDQvtC10LrRgtCw0LzQuCwg0LfQsNC00LDRh9Cw0LzQuCDQuCDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y/QvNC4IiB7CiAgICAgICAgICAgIC8vINCa0L7QvdGC0LXQudC90LXRgNGLINC/0L4g0L/RgNC40L3RhtC40L/RgyBib3VuZGVkIGNvbnRleHRzINCyIERERAoKICAgICAgICAgICAgLy8g0KHQtdGA0LLQuNGBINGD0L/RgNCw0LLQu9C10L3QuNGPINC/0YDQvtC10LrRgtCw0LzQuAogICAgICAgICAgICBwcm9qZWN0U2VydmljZSA9IGNvbnRhaW5lciAiUHJvamVjdCBTZXJ2aWNlIiAi0KPQv9GA0LDQstC70Y/QtdGCINC/0YDQvtC10LrRgtCw0LzQuCIgIkphdmEsIFNwcmluZyBCb290IgogICAgICAgICAgICAvLyDQodC10YDQstC40YEg0YPQv9GA0LDQstC70LXQvdC40Y8g0LfQsNC00LDRh9Cw0LzQuAogICAgICAgICAgICB0YXNrU2VydmljZSA9IGNvbnRhaW5lciAiVGFzayBTZXJ2aWNlIiAi0KPQv9GA0LDQstC70Y/QtdGCINC30LDQtNCw0YfQsNC80LgiICJKYXZhLCBTcHJpbmcgQm9vdCIKICAgICAgICAgICAgLy8g0KHQtdGA0LLQuNGBINGD0L/RgNCw0LLQu9C10L3QuNGPINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvRj9C80LgKICAgICAgICAgICAgdXNlclNlcnZpY2UgPSBjb250YWluZXIgIlVzZXIgU2VydmljZSIgItCj0L/RgNCw0LLQu9GP0LXRgiDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y/QvNC4IiAiSmF2YSwgU3ByaW5nIEJvb3QiCgogICAgICAgICAgICAvLyDQkdCw0LfRiyDQtNCw0L3QvdGL0YUg0LTQu9GPINC60LDQttC00L7Qs9C+INGB0LXRgNCy0LjRgdCwLCDQvtCx0LXRgdC/0LXRh9C40LLQsNGO0YnQuNC1INC40LfQvtC70Y/RhtC40Y4g0LTQsNC90L3Ri9GFCiAgICAgICAgICAgIC8vINCR0LDQt9CwINC00LDQvdC90YvRhSDQv9GA0L7QtdC60YLQvtCyCiAgICAgICAgICAgIHByb2plY3REYXRhYmFzZSA9IGNvbnRhaW5lciAiUHJvamVjdCBEYXRhYmFzZSIgItCl0YDQsNC90LjRgiDQuNC90YTQvtGA0LzQsNGG0LjRjiDQviDQv9GA0L7QtdC60YLQsNGFIiAiUG9zdGdyZVNRTCIKICAgICAgICAgICAgLy8g0JHQsNC30LAg0LTQsNC90L3Ri9GFINC30LDQtNCw0YcKICAgICAgICAgICAgdGFza0RhdGFiYXNlID0gY29udGFpbmVyICJUYXNrIERhdGFiYXNlIiAi0KXRgNCw0L3QuNGCINC40L3RhNC+0YDQvNCw0YbQuNGOINC+INC30LDQtNCw0YfQsNGFIiAiUG9zdGdyZVNRTCIKICAgICAgICAgICAgLy8g0JHQsNC30LAg0LTQsNC90L3Ri9GFINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5CiAgICAgICAgICAgIHVzZXJEYXRhYmFzZSA9IGNvbnRhaW5lciAiVXNlciBEYXRhYmFzZSIgItCl0YDQsNC90LjRgiDQuNC90YTQvtGA0LzQsNGG0LjRjiDQviDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y/RhSIgIlBvc3RncmVTUUwiCiAgICAgICAgfQoKICAgICAgICAvLyDQntC/0YDQtdC00LXQu9GP0LXQvCDQstC30LDQuNC80L7QtNC10LnRgdGC0LLQuNGPINC80LXQttC00YMg0Y3Qu9C10LzQtdC90YLQsNC80Lgg0YHQuNGB0YLQtdC80YsKCiAgICAgICAgLy8g0J/QvtC70YzQt9C+0LLQsNGC0LXQu9GMINCy0LfQsNC40LzQvtC00LXQudGB0YLQstGD0LXRgiDRgSDRgdC10YDQstC40YHQvtC8INC/0YDQvtC10LrRgtC+0LIg0LTQu9GPINGD0L/RgNCw0LLQu9C10L3QuNGPINC/0YDQvtC10LrRgtCw0LzQuAogICAgICAgIHVzZXIgLT4gcHJvamVjdFNlcnZpY2UgItCY0YHQv9C+0LvRjNC30YPQtdGCINC00LvRjyDRg9C/0YDQsNCy0LvQtdC90LjRjyDQv9GA0L7QtdC60YLQsNC80LgiICJIVFRQUyIKICAgICAgICAvLyDQn9C+0LvRjNC30L7QstCw0YLQtdC70Ywg0LLQt9Cw0LjQvNC+0LTQtdC50YHRgtCy0YPQtdGCINGBINGB0LXRgNCy0LjRgdC+0Lwg0LfQsNC00LDRhyDQtNC70Y8g0YPQv9GA0LDQstC70LXQvdC40Y8g0LfQsNC00LDRh9Cw0LzQuAogICAgICAgIHVzZXIgLT4gdGFza1NlcnZpY2UgItCY0YHQv9C+0LvRjNC30YPQtdGCINC00LvRjyDRg9C/0YDQsNCy0LvQtdC90LjRjyDQt9Cw0LTQsNGH0LDQvNC4IiAiSFRUUFMiCiAgICAgICAgLy8g0J/QvtC70YzQt9C+0LLQsNGC0LXQu9GMINCy0LfQsNC40LzQvtC00LXQudGB0YLQstGD0LXRgiDRgSDRgdC10YDQstC40YHQvtC8INC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5INC00LvRjyDRg9C/0YDQsNCy0LvQtdC90LjRjyDQsNC60LrQsNGD0L3RgtC+0LwKICAgICAgICB1c2VyIC0+IHVzZXJTZXJ2aWNlICLQmNGB0L/QvtC70YzQt9GD0LXRgiDQtNC70Y8g0YPQv9GA0LDQstC70LXQvdC40Y8g0LDQutC60LDRg9C90YLQvtC8IiAiSFRUUFMiCgogICAgICAgIC8vINCa0LDQttC00YvQuSDRgdC10YDQstC40YEg0LLQt9Cw0LjQvNC+0LTQtdC50YHRgtCy0YPQtdGCINGB0L4g0YHQstC+0LXQuSDQsdCw0LfQvtC5INC00LDQvdC90YvRhQogICAgICAgIHByb2plY3RTZXJ2aWNlIC0+IHByb2plY3REYXRhYmFzZSAi0KfQuNGC0LDQtdGCINC4INC30LDQv9C40YHRi9Cy0LDQtdGCINC00LDQvdC90YvQtSDQviDQv9GA0L7QtdC60YLQsNGFIiAiSkRCQyIKICAgICAgICB0YXNrU2VydmljZSAtPiB0YXNrRGF0YWJhc2UgItCn0LjRgtCw0LXRgiDQuCDQt9Cw0L/QuNGB0YvQstCw0LXRgiDQtNCw0L3QvdGL0LUg0L4g0LfQsNC00LDRh9Cw0YUiICJKREJDIgogICAgICAgIHVzZXJTZXJ2aWNlIC0+IHVzZXJEYXRhYmFzZSAi0KfQuNGC0LDQtdGCINC4INC30LDQv9C40YHRi9Cy0LDQtdGCINC00LDQvdC90YvQtSDQviDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y/RhSIgIkpEQkMiCgogICAgICAgIC8vINCc0LXQttGB0LXRgNCy0LjRgdC90YvQtSDQutC+0LzQvNGD0L3QuNC60LDRhtC40Lgg0LTQu9GPINC/0L7Qu9GD0YfQtdC90LjRjyDQvdC10L7QsdGF0L7QtNC40LzQvtC5INC40L3RhNC+0YDQvNCw0YbQuNC4CgogICAgICAgIC8vINCh0LXRgNCy0LjRgSDQt9Cw0LTQsNGHINC+0LHRgNCw0YnQsNC10YLRgdGPINC6INGB0LXRgNCy0LjRgdGDINC/0YDQvtC10LrRgtC+0LIg0LTQu9GPINC/0L7Qu9GD0YfQtdC90LjRjyDQuNC90YTQvtGA0LzQsNGG0LjQuCDQviDQv9GA0L7QtdC60YLQsNGFCiAgICAgICAgdGFza1NlcnZpY2UgLT4gcHJvamVjdFNlcnZpY2UgItCf0L7Qu9GD0YfQsNC10YIg0LTQsNC90L3Ri9C1INC/0YDQvtC10LrRgtC+0LIiICJSRVNUIEFQSSIKICAgICAgICAvLyDQodC10YDQstC40YEg0LfQsNC00LDRhyDQvtCx0YDQsNGJ0LDQtdGC0YHRjyDQuiDRgdC10YDQstC40YHRgyDQv9C+0LvRjNC30L7QstCw0YLQtdC70LXQuSDQtNC70Y8g0L/QvtC70YPRh9C10L3QuNGPINC40L3RhNC+0YDQvNCw0YbQuNC4INC+INC/0L7Qu9GM0LfQvtCy0LDRgtC10LvRj9GFCiAgICAgICAgdGFza1NlcnZpY2UgLT4gdXNlclNlcnZpY2UgItCf0L7Qu9GD0YfQsNC10YIg0LTQsNC90L3Ri9C1INC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5IiAiUkVTVCBBUEkiCiAgICB9CgogICAgLy8g0J7Qv9GA0LXQtNC10LvRj9C10Lwg0L/RgNC10LTRgdGC0LDQstC70LXQvdC40Y8gKNC00LjQsNCz0YDQsNC80LzRiykg0YHQuNGB0YLQtdC80YsKICAgIHZpZXdzIHsKICAgICAgICAvLyDQlNC40LDQs9GA0LDQvNC80LAg0LrQvtC90YLQtdC60YHRgtCwINGB0LjRgdGC0LXQvNGLCiAgICAgICAgc3lzdGVtQ29udGV4dCBwcm9qZWN0TWFuYWdlbWVudFN5c3RlbSAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dCBscgogICAgICAgIH0KCiAgICAgICAgLy8g0JTQuNCw0LPRgNCw0LzQvNCwINC60L7QvdGC0LXQudC90LXRgNC+0LIg0YHQuNGB0YLQtdC80YsKICAgICAgICBjb250YWluZXIgcHJvamVjdE1hbmFnZW1lbnRTeXN0ZW0gIkNvbnRhaW5lcnMiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIC8vINCU0LjQvdCw0LzQuNGH0LXRgdC60LDRjyDQtNC40LDQs9GA0LDQvNC80LAg0LTQu9GPINC40LvQu9GO0YHRgtGA0LDRhtC40Lgg0LDRgNGF0LjRgtC10LrRgtGD0YDQvdC+INC30L3QsNGH0LjQvNC+0LPQviDQstCw0YDQuNCw0L3RgtCwINC40YHQv9C+0LvRjNC30L7QstCw0L3QuNGPCiAgICAgICAgZHluYW1pYyBwcm9qZWN0TWFuYWdlbWVudFN5c3RlbSAiQ3JlYXRlUHJvamVjdEFuZFRhc2siICLQn9GA0L7RhtC10YHRgSDRgdC+0LfQtNCw0L3QuNGPINC/0YDQvtC10LrRgtCwINC4INC30LDQtNCw0YfQuCIgewogICAgICAgICAgICAvLyDQn9C+0YHQu9C10LTQvtCy0LDRgtC10LvRjNC90L7RgdGC0Ywg0LTQtdC50YHRgtCy0LjQuSDQv9GA0Lgg0YHQvtC30LTQsNC90LjQuCDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y8KICAgICAgICAgICAgdXNlciAtPiB1c2VyU2VydmljZSAiUE9TVCAvdXNlcnMiCiAgICAgICAgICAgIHVzZXJTZXJ2aWNlIC0+IHVzZXJEYXRhYmFzZSAi0KHQvtC30LTQsNC90LjQtSDQv9C+0LvRjNC30L7QstCw0YLQtdC70Y8iCiAgICAgICAgICAgIHVzZXJTZXJ2aWNlIC0+IHVzZXIgItCf0L7QtNGC0LLQtdGA0LbQtNC10L3QuNC1INGB0L7Qt9C00LDQvdC40Y8iCgogICAgICAgICAgICAvLyDQn9C+0YHQu9C10LTQvtCy0LDRgtC10LvRjNC90L7RgdGC0Ywg0LTQtdC50YHRgtCy0LjQuSDQv9GA0Lgg0YHQvtC30LTQsNC90LjQuCDQv9GA0L7QtdC60YLQsAogICAgICAgICAgICB1c2VyIC0+IHByb2plY3RTZXJ2aWNlICJQT1NUIC9wcm9qZWN0cyIKICAgICAgICAgICAgcHJvamVjdFNlcnZpY2UgLT4gcHJvamVjdERhdGFiYXNlICLQodC+0LfQtNCw0L3QuNC1INC/0YDQvtC10LrRgtCwIgogICAgICAgICAgICBwcm9qZWN0U2VydmljZSAtPiB1c2VyICLQlNC10YLQsNC70Lgg0L/RgNC+0LXQutGC0LAiCgogICAgICAgICAgICAvLyDQn9C+0YHQu9C10LTQvtCy0LDRgtC10LvRjNC90L7RgdGC0Ywg0LTQtdC50YHRgtCy0LjQuSDQv9GA0Lgg0YHQvtC30LTQsNC90LjQuCDQt9Cw0LTQsNGH0LgKICAgICAgICAgICAgdXNlciAtPiB0YXNrU2VydmljZSAiUE9TVCAvdGFza3MiCiAgICAgICAgICAgIHRhc2tTZXJ2aWNlIC0+IHRhc2tEYXRhYmFzZSAi0KHQvtC30LTQsNC90LjQtSDQt9Cw0LTQsNGH0LgiCgogICAgICAgICAgICAvLyDQodC10YDQstC40YEg0LfQsNC00LDRhyDQt9Cw0L/RgNCw0YjQuNCy0LDQtdGCINC00LDQvdC90YvQtSDQv9GA0L7QtdC60YLQsCDRgyDRgdC10YDQstC40YHQsCDQv9GA0L7QtdC60YLQvtCyCiAgICAgICAgICAgIHRhc2tTZXJ2aWNlIC0+IHByb2plY3RTZXJ2aWNlICJHRVQgL3Byb2plY3RzL3tpZH0iCiAgICAgICAgICAgIHByb2plY3RTZXJ2aWNlIC0+IHByb2plY3REYXRhYmFzZSAi0J/QvtC70YPRh9C10L3QuNC1INC/0YDQvtC10LrRgtCwIgoKICAgICAgICAgICAgLy8g0KHQtdGA0LLQuNGBINC30LDQtNCw0Ycg0LfQsNC/0YDQsNGI0LjQstCw0LXRgiDQtNCw0L3QvdGL0LUg0L/QvtC70YzQt9C+0LLQsNGC0LXQu9GPINGDINGB0LXRgNCy0LjRgdCwINC/0L7Qu9GM0LfQvtCy0LDRgtC10LvQtdC5CiAgICAgICAgICAgIHRhc2tTZXJ2aWNlIC0+IHVzZXJTZXJ2aWNlICJHRVQgL3VzZXJzL3tpZH0iCiAgICAgICAgICAgIHVzZXJTZXJ2aWNlIC0+IHVzZXJEYXRhYmFzZSAi0J/QvtC70YPRh9C10L3QuNC1INC/0L7Qu9GM0LfQvtCy0LDRgtC10LvRjyIKCiAgICAgICAgICAgIC8vINCh0LXRgNCy0LjRgSDQt9Cw0LTQsNGHINCy0L7Qt9Cy0YDQsNGJ0LDQtdGCINC00LXRgtCw0LvQuCDQt9Cw0LTQsNGH0Lgg0L/QvtC70YzQt9C+0LLQsNGC0LXQu9GOCiAgICAgICAgICAgIHRhc2tTZXJ2aWNlIC0+IHVzZXIgItCU0LXRgtCw0LvQuCDQt9Cw0LTQsNGH0LgiCiAgICAgICAgfQoKICAgICAgICAvLyDQntC/0YDQtdC00LXQu9GP0LXQvCDRgdGC0LjQu9C4INC00LvRjyDRjdC70LXQvNC10L3RgtC+0LIg0LTQuNCw0LPRgNCw0LzQvAogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIC8vINCh0YLQuNC70Ywg0LTQu9GPINC/0LXRgNGB0L7QvdGLICjQv9C+0LvRjNC30L7QstCw0YLQtdC70Y8pCiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcGVyc29uCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICMwODQyN2IKICAgICAgICAgICAgICAgIGNvbG9yICAgICAgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIC8vINCh0YLQuNC70Ywg0LTQu9GPINC60L7QvdGC0LXQudC90LXRgNC+0LIgKNGB0LXRgNCy0LjRgdC+0LIpCiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRhaW5lciIgewogICAgICAgICAgICAgICAgc2hhcGUgYm94CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM0MzhkZDUKICAgICAgICAgICAgICAgIGNvbG9yICAgICAgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIC8vINCh0YLQuNC70Ywg0LTQu9GPINC60L7QvdGC0LXQudC90LXRgNC+0LIt0LHQsNC3INC00LDQvdC90YvRhQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIgRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgIHNoYXBlIGN5bGluZGVyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM4NWJiZjAKICAgICAgICAgICAgICAgIGNvbG9yICAgICAgIzAwMDAwMAogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9"
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "Containers",
+      "styles" : {
+        "elements" : [ {
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "shape" : "Box",
+          "tag" : "Container"
+        }, {
+          "background" : "#85bbf0",
+          "color" : "#000000",
+          "shape" : "Cylinder",
+          "tag" : "Container Database"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "14"
+      }, {
+        "id" : "15"
+      }, {
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "9"
+      } ],
+      "softwareSystemId" : "2"
+    } ],
+    "dynamicViews" : [ {
+      "description" : "Процесс создания проекта и задачи",
+      "dimensions" : {
+        "height" : 1748,
+        "width" : 2480
+      },
+      "elementId" : "2",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalBoundariesVisible" : false,
+      "key" : "CreateProjectAndTask",
+      "order" : 3,
+      "paperSize" : "A5_Landscape",
+      "relationships" : [ {
+        "description" : "POST /users",
+        "id" : "12",
+        "order" : "1",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 346,
+          "y" : 242
+        } ]
+      }, {
+        "description" : "Создание пользователя",
+        "id" : "15",
+        "order" : "2",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 300
+        } ]
+      }, {
+        "description" : "Подтверждение создания",
+        "id" : "12",
+        "order" : "3",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 78,
+          "y" : 107
+        } ]
+      }, {
+        "description" : "POST /projects",
+        "id" : "9",
+        "order" : "4",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 346,
+          "y" : 242
+        } ]
+      }, {
+        "description" : "Создание проекта",
+        "id" : "13",
+        "order" : "5",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 300
+        } ]
+      }, {
+        "description" : "Детали проекта",
+        "id" : "9",
+        "order" : "6",
+        "response" : true,
+        "vertices" : [ {
+          "x" : 78,
+          "y" : 107
+        } ]
+      }, {
+        "description" : "POST /tasks",
+        "id" : "11",
+        "order" : "7",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 614,
+          "y" : 376
+        } ]
+      }, {
+        "description" : "Создание задачи",
+        "id" : "14",
+        "order" : "8",
+        "response" : false
+      }, {
+        "description" : "GET /projects/{id}",
+        "id" : "16",
+        "order" : "9",
+        "response" : false
+      }, {
+        "description" : "Получение проекта",
+        "id" : "13",
+        "order" : "10",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 0
+        } ]
+      }, {
+        "description" : "GET /users/{id}",
+        "id" : "17",
+        "order" : "11",
+        "response" : false
+      }, {
+        "description" : "Получение пользователя",
+        "id" : "15",
+        "order" : "12",
+        "response" : false,
+        "vertices" : [ {
+          "x" : 225,
+          "y" : 0
+        } ]
+      }, {
+        "description" : "Детали задачи",
+        "id" : "11",
+        "order" : "13",
+        "response" : true
+      } ]
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemContext",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "10"
+      } ],
+      "softwareSystemId" : "2"
+    } ]
+  }
+}
