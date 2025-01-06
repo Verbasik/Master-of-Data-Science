@@ -6,9 +6,9 @@
     <img class="rounded-circle article-img d-flex align-self-center" src="{{ user_profile.profile.image.url }}">
     <div>
       <h2>@{{ user_profile.username }}</h1>
-      <p class="text-muted pl-2">{{ user_profile.profile.bio }}</p>
+      <p class="text-muted pl-2 user-bio">{{ user_profile.profile.bio }}</p>
     </div>
-    
+
   </div>
   <div class="d-flex align-items-center">
     {% if user_profile == user %}
@@ -19,7 +19,6 @@
   </div>
 
 </div>
-
 
 <hr class="mb-4">
     {% for post in posts %}

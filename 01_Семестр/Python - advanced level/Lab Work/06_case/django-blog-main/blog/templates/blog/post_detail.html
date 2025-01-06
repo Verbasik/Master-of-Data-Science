@@ -1,5 +1,6 @@
 {% extends "blog/base-template.html" %}
 {% block content %}
+<!-- {% load markdown_extras %} -->
     {% if object.author == user %}
     <div class="d-flex justify-content-end mb-2">
         <a class="btn btn-secondary btn-sm mt-1 mr-2" href="{% url 'post-update' object.id %}">Edit</a>
@@ -16,6 +17,7 @@
             <h2 class ="article-title">{{ object.title }}</h2>
             <p class="lead pb-2">{{ object.subtitle }}</p>
             <p class="article-content">{{ object.content }}</p>
+            <!-- <p class="article-content">{{ object.content|markdownify }}</p> -->
         </div>
     </article>
 
