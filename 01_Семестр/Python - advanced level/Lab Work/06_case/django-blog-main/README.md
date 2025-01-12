@@ -1,5 +1,9 @@
 # Django Blog
 
+![main](https://raw.githubusercontent.com/Verbasik/Master-of-Data-Science/refs/heads/develop/01_%D0%A1%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80/Python%20-%20advanced%20level/Lab%20Work/06_case/assets/01.png)
+
+![example](https://raw.githubusercontent.com/Verbasik/Master-of-Data-Science/refs/heads/develop/01_%D0%A1%D0%B5%D0%BC%D0%B5%D1%81%D1%82%D1%80/Python%20-%20advanced%20level/Lab%20Work/06_case/assets/02.png)
+
 ## Структура проекта
 
 ```
