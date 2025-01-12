@@ -1,122 +1,477 @@
-body {
-  color: #333333;
-  margin-top: 5rem;
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+   body {
+    color: #333333;
+    margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #444444 !important; 
+    color: #444444 !important; 
 }
 
 ul {
-  margin: 0;
+    margin: 0;
+}
+
+/* ==========================================================================
+   Header styles
+   ========================================================================== */
+header {
+    margin-bottom: 5rem;
 }
 
 .bg-steel {
-  background-color: #1f1e22;
+    background-color: #1f1e22;
 }
 
 .site-header .navbar-nav .nav-link {
-  color: #cbd5db;
+    color: #cbd5db;
 }
 
 .site-header .navbar-nav .nav-link:hover {
-  color: #ffffff;
+    color: #ffffff;
 }
 
 .site-header .navbar-nav .nav-link.active {
-  font-weight: 300;
+    font-weight: 300;
 }
 
+/* ==========================================================================
+   Layout containers
+   ========================================================================== */
 .content-section {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 15px !important;
+  overflow: visible !important;
   background: #ffffff;
-  padding: 10px 20px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
 }
 
+.content-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+.media {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.media-body {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+}
+
+.post-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 0 15px !important;
+}
+
+/* ==========================================================================
+   Article styles
+   ========================================================================== */
 .article-title {
-  color: #444444;
+    color: #444444;
 }
 
 a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
+    color: #428bca;
+    text-decoration: none;
 }
 
 .article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
-}
-
-.article-metadata {
-  padding-bottom: 1px;
-  margin-bottom: 4px;
-  border-bottom: 1px solid #e3e3e3
-}
-
-.article-metadata a:hover {
-  color: #333;
-  text-decoration: none;
+    height: 65px;
+    width: 65px;
+    margin-right: 16px;
 }
 
 .article-svg {
-  width: 25px;
-  height: 25px;
-  vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    vertical-align: middle;
 }
 
+.article-metadata {
+    padding-bottom: 1px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid #e3e3e3;
+}
+
+.article-metadata a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   Article content and Markdown styles
+   ========================================================================== */
+.article-content,
+.markdown-body {
+       width: 100% !important;
+       max-width: 100% !important;
+       box-sizing: border-box !important;
+       word-wrap: break-word !important;
+       word-break: break-all !important;
+       overflow-wrap: break-word !important;
+       -ms-word-break: break-all !important;
+       -webkit-hyphens: auto !important;
+       -moz-hyphens: auto !important;
+       hyphens: auto !important;
+   }
+
+.article-content *,
+.markdown-body * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
+/* Headers */
+.article-content h1, .article-content h2, .article-content h3,
+.article-content h4, .article-content h5, .article-content h6,
+.markdown-body h1, .markdown-body h2, .markdown-body h3,
+.markdown-body h4, .markdown-body h5, .markdown-body h6 {
+    margin-top: 24px !important;
+    margin-bottom: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.25 !important;
+    color: #444444 !important;
+}
+
+.markdown-body h1 { font-size: 2em !important; }
+.markdown-body h2 {
+    font-size: 1.5em !important;
+    padding-bottom: .3em !important;
+    border-bottom: 1px solid #eaecef !important;
+}
+.markdown-body h3 { font-size: 1.25em !important; }
+
+/* Paragraphs */
+.article-content p,
+.markdown-body p {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 0 1em 0 !important;
+    padding-right: 15px !important;
+    box-sizing: border-box !important;
+    word-wrap: break-word !important;
+    word-break: break-all !important;
+    overflow-wrap: break-word !important;
+}
+
+* {
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+  word-break: break-all !important;
+  -ms-word-break: break-all !important;
+}
+
+/* Code blocks */
+.article-content pre,
+.markdown-body pre {
+    background-color: #f6f8fa;
+    border-radius: 3px;
+    padding: 16px;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    max-width: 100% !important;
+}
+
+.article-content code,
+.markdown-body code {
+    background-color: rgba(27,31,35,.05);
+    border-radius: 3px;
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+}
+
+/* Lists */
+.article-content ul,
+.article-content ol,
+.markdown-body ul,
+.markdown-body ol {
+    padding-left: 2em;
+    margin-bottom: 1rem;
+}
+
+/* Links */
+.article-content a,
+.markdown-body a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.article-content a:hover,
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+
+/* Blockquotes */
+.article-content blockquote,
+.markdown-body blockquote {
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: 0.25em solid #dfe2e5;
+    margin: 0 0 1rem;
+}
+
+/* Tables */
+.article-content table,
+.markdown-body table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+    max-width: 100% !important;
+}
+
+.article-content table th,
+.article-content table td,
+.markdown-body table th,
+.markdown-body table td {
+    padding: 6px 13px;
+    border: 1px solid #dfe2e5;
+}
+
+.article-content table tr:nth-child(2n),
+.markdown-body table tr:nth-child(2n) {
+    background-color: #f6f8fa;
+}
+
+/* Images */
+.article-content img,
+.markdown-body img {
+    max-width: 100% !important;
+    height: auto;
+    margin: 1rem 0;
+}
+
+/* Horizontal rule */
+.article-content hr,
+.markdown-body hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: #e1e4e8;
+    border: 0;
+}
+
+/* ==========================================================================
+   Math (KaTeX) styles
+   ========================================================================== */
+.katex-display {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    padding: 1em 0 !important;
+    margin: 1em 0 !important;
+    max-width: 100% !important;
+}
+
+.katex {
+    font-size: 1.1em !important;
+    color: #24292e !important;
+    max-width: 100% !important;
+}
+
+.katex-display > .katex {
+    display: block !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+}
+
+.katex-html {
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    max-width: 100% !important;
+}
+
+.markdown-body math {
+    display: block !important;
+    margin: 1em 0 !important;
+    text-align: center !important;
+}
+
+/* ==========================================================================
+   Profile styles
+   ========================================================================== */
 .account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
+    height: 125px;
+    width: 125px;
+    margin-right: 20px;
+    margin-bottom: 16px;
 }
 
 .account-heading {
-  font-size: 2.5rem;
+    font-size: 2.5rem;
 }
 
-header{
-  margin-bottom: 5rem;
-}
-
+/* ==========================================================================
+   Button styles
+   ========================================================================== */
 .btn-new-post {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #1DA1F2;
-  border: 1px solid #1A91DA;
-  border-radius: 25px;
-  text-align: center;
-  text-decoration: none;
-  transition: background-color 0.3s, border-color 0.3s;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #1DA1F2;
+    border: 1px solid #1A91DA;
+    border-radius: 25px;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, border-color 0.3s;
 }
 
 .btn-new-post:hover,
 .btn-new-post:focus {
-  background-color: #1a85cd;
-  border-color: #1A91DA;
-  color: #fff !important;
-  outline: none;
+    background-color: #1a85cd;
+    border-color: #1A91DA;
+    color: #fff !important;
+    outline: none;
 }
 
-/* Estilo padrão para o link "My Posts" */
+/* ==========================================================================
+   List group styles
+   ========================================================================== */
 .list-group-item.list-group-item-light a {
-  color: inherit !important; /* Mantém a cor herdada do item da lista */
-  text-decoration: none !important; /* Remove o sublinhado */
+    color: inherit !important;
+    text-decoration: none !important;
 }
 
-/* Estilo quando o mouse passa por cima do link */
 .list-group-item.list-group-item-light a:hover,
 .list-group-item.list-group-item-light a:focus {
-  color: #007bff !important; /* Cor azul ao passar o mouse */
-  text-decoration: none !important; /* Continua sem sublinhado */
+    color: #007bff !important;
+    text-decoration: none !important;
+}
+
+/* ==========================================================================
+   Bootstrap overrides
+   ========================================================================== */
+.col-md-8 {
+    padding-right: 15px;
+    padding-left: 15px;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+}
+
+/* ==========================================================================
+   Media queries
+   ========================================================================== */
+@media (max-width: 768px) {
+    .col-md-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .content-wrapper {
+        padding: 0 10px;
+    }
+    
+    .content-section {
+      background: #ffffff;
+      padding: 20px;
+      border: 1px solid #dddddd;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+    
+    .article-content,
+    .markdown-body {
+      width: 100%;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    .article-content.markdown-body p {
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 100%;
+    }
+    
+    .article-content h1,
+    .markdown-body h1 {
+        font-size: 1.8rem !important;
+    }
+    
+    .article-content h2,
+    .markdown-body h2 {
+        font-size: 1.6rem !important;
+    }
+    
+    .article-content pre,
+    .markdown-body pre {
+        padding: 10px;
+    }
+    
+    .btn-new-post {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .container-fluid {
+      max-width: 100%;
+    }
+  
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+    
+    .col-12 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+      padding: 0 10px;
+    }
+    
+    .article-content,
+    .markdown-body {
+      padding: 0 10px;
+    }
+    
+    .article-img {
+        height: 50px;
+        width: 50px;
+    }
+    
+    .account-img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+  .article-content,
+  .markdown-body {
+      padding-right: 10px !important;
+  }
+  
+  .post-container {
+      padding: 0 10px !important;
+  }
 }
