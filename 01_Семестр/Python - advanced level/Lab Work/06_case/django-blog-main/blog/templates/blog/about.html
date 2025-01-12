@@ -1,6 +1,7 @@
 {% extends "blog/base-template.html" %}
 {% block content %}
 <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header Section -->
     <div class="text-center mb-8">
         <h1 class="text-4xl font-bold mb-4">🧠 Weekly arXiv ML/AI Research Review</h1>
         <p class="text-xl italic mb-6">"Чем больше я знаю, тем больше я понимаю, что ничего не знаю"</p>
@@ -18,6 +19,7 @@
         </div>
     </div>
 
+    <!-- About Platform Section -->
     <section class="mb-12">
         <h2 class="text-2xl font-bold mb-4">📚 О платформе</h2>
         <p class="mb-4">
@@ -34,10 +36,11 @@
         </ul>
     </section>
 
+    <!-- How to Join Section -->
     <section class="mb-12">
         <h2 class="text-2xl font-bold mb-4">👥 Как присоединиться</h2>
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-lg shadow">
+            <div>
                 <h3 class="text-xl font-bold mb-3">📖 Читатель</h3>
                 <ul class="list-disc pl-6 space-y-2">
                     <li>Регистрация на платформе</li>
@@ -47,7 +50,7 @@
                 </ul>
             </div>
 
-            <div class="bg-white p-6 rounded-lg shadow">
+            <div>
                 <h3 class="text-xl font-bold mb-3">✍️ Автор</h3>
                 <ul class="list-disc pl-6 space-y-2">
                     <li>Публикация обзоров после модерации</li>
@@ -59,32 +62,33 @@
         </div>
     </section>
 
+    <!-- Publication Rules Section -->
     <section class="mb-12">
         <h2 class="text-2xl font-bold mb-4">📋 Правила публикации</h2>
-        <div class="bg-white p-6 rounded-lg shadow">
-            <ul class="list-disc pl-6 space-y-2">
-                <li>Уникальный авторский контент без плагиата</li>
-                <li>Следование структурированному формату обзора</li>
-                <li>Наличие работающего кода реализации</li>
-                <li>Корректное цитирование источников</li>
-                <li>Проверка материалов модераторами перед публикацией</li>
-            </ul>
-        </div>
+        <ul class="list-disc pl-6 space-y-2">
+            <li>Уникальный авторский контент без плагиата</li>
+            <li>Следование структурированному формату обзора</li>
+            <li>Наличие работающего кода реализации</li>
+            <li>Корректное цитирование источников</li>
+            <li>Проверка материалов модераторами перед публикацией</li>
+        </ul>
     </section>
 
+    <!-- Topics Navigation Section -->
     <section class="mb-12">
         <h2 class="text-2xl font-bold mb-4">🔍 Навигация по темам</h2>
-        <div class="flex flex-wrap gap-2">
-          <li><span class="px-3 py-1 bg-blue-100 rounded-full">🤖 Машинное обучение</span></li>
-          <li><span class="px-3 py-1 bg-green-100 rounded-full">🧬 Биоинформатика</span></li>
-          <li><span class="px-3 py-1 bg-purple-100 rounded-full">🧠 Нейронные сети</span></li>
-          <li><span class="px-3 py-1 bg-yellow-100 rounded-full">🔬 Научные вычисления</span></li>
-          <li><span class="px-3 py-1 bg-red-100 rounded-full">📊 Анализ данных</span></li>
-          <li><span class="px-3 py-1 bg-indigo-100 rounded-full">🎯 Компьютерное зрение</span></li>
-          <li><span class="px-3 py-1 bg-pink-100 rounded-full">💬 Обработка естественного языка</span></li>
-        </div>
+        <ul class="flex flex-wrap gap-2">
+            <li><span class="px-3 py-1 bg-blue-100 rounded-full">🤖 Машинное обучение</span></li>
+            <li><span class="px-3 py-1 bg-green-100 rounded-full">🧬 Биоинформатика</span></li>
+            <li><span class="px-3 py-1 bg-purple-100 rounded-full">🧠 Нейронные сети</span></li>
+            <li><span class="px-3 py-1 bg-yellow-100 rounded-full">🔬 Научные вычисления</span></li>
+            <li><span class="px-3 py-1 bg-red-100 rounded-full">📊 Анализ данных</span></li>
+            <li><span class="px-3 py-1 bg-indigo-100 rounded-full">🎯 Компьютерное зрение</span></li>
+            <li><span class="px-3 py-1 bg-pink-100 rounded-full">💬 Обработка естественного языка</span></li>
+        </ul>
     </section>
 
+    <!-- Contacts Section -->
     <section class="mb-12">
         <h2 class="text-2xl font-bold mb-4">📫 Контакты</h2>
         <ul class="space-y-2">
@@ -106,6 +110,7 @@
         </ul>
     </section>
 
+    <!-- Footer -->
     <footer class="text-center mt-12 pt-8 border-t">
         <p>Made with ❤️ for the AI research community</p>
     </footer>
