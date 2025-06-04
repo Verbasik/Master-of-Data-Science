@@ -31,7 +31,7 @@ rouge = rouge_scorer.RougeScorer(["rougeL"], use_stemmer=True)
 # ───────────────────────── Dataset & DataLoader ─────────────────────────
 
 class EEGEpochSpectrogramDataset(Dataset):
-    """EEG → лог-спектр ≤ 50 Гц + токены текста."""
+    """EEG → лог-спектр ≤ 60 Гц + токены текста."""
 
     def __init__(
         self,
@@ -47,15 +47,20 @@ class EEGEpochSpectrogramDataset(Dataset):
         self.sr, self.n_fft, self.hop = sample_rate, n_fft, hop_length
         self.max_len = max_len_tokens
 
-        # Загрузка всех .pkl
+        # Загрузка всех .pkl и удаление некорректных записей
         self._records: List[Dict[str, Any]] = []
         for p in pkl_paths:
             with open(p, "rb") as f:
-                self._records.extend(pickle.load(f))
+                for rec in pickle.load(f):
+                    text = str(rec.get("text", ""))
+                    if text in {"[MISSING]", "nan"}:
+                        continue
+                    rec["text"] = text
+                    self._records.append(rec)
 
-        # Предвычисляем маску ≤50 Гц и окно Ханна
+        # Предвычисляем маску ≤60 Гц и окно Ханна
         freqs = torch.fft.rfftfreq(self.n_fft, 1.0 / self.sr)
-        self.freq_mask = (freqs <= 50.0)
+        self.freq_mask = (freqs <= 60.0)
         self.window    = torch.hann_window(self.n_fft)
 
     def __len__(self) -> int:
@@ -82,9 +87,8 @@ class EEGEpochSpectrogramDataset(Dataset):
             signal = signal.squeeze(0)
         spec = self._compute_spectrogram(signal)
 
-        # Преобразуем любое значение в строку, nan станет "nan"
-        text = str(rec.get("text", ""))
-        if text == "nan": text = "[MISSING]"  # при условии хуевой обработки
+        # Текст уже приведён к строке и отфильтрован в __init__
+        text = rec.get("text", "")
         ids = self.tokenizer(
             text,
             truncation=True,
@@ -349,7 +353,12 @@ def tp_loss_and_stats(
     for lg in logits_seq:
         all_logits = lg.unsqueeze(1).expand(-1, L, -1).reshape(-1, lg.size(-1))
         logits_n   = all_logits[mask_flat]
-        ce_n       = F.cross_entropy(logits_n, tgt_flat, reduction="none")
+        ce_n       = F.cross_entropy(
+            logits_n,
+            tgt_flat,
+            reduction="none",
+            label_smoothing=0.1,
+        )
         p          = logits_n.softmax(-1)
         conf_n     = -(p * p.log()).sum(-1)
         ce_by_tau.append(ce_n); conf_by_tau.append(conf_n)
@@ -399,7 +408,7 @@ class TrainArgs:
     num_ticks:      int   = 8
     window_M:       int   = 8
     hidden:         int   = 128
-    lm_loss_weight: float = 0.3
+    lm_loss_weight: float = 0.6
     eps_ce:         float = 1.0
 
 
@@ -413,6 +422,62 @@ def greedy_decode(model, spec, max_len, bos_id, eos_id):
         if next_id == eos_id:
             break
     return ys
+
+
+def beam_decode(
+    model,
+    spec: Tensor,
+    max_len: int,
+    bos_id: int,
+    eos_id: int,
+    beam_size: int = 5,
+    repetition_penalty: float = 1.2,
+    no_repeat_ngram_size: int = 3,
+    length_penalty: float = 0.8,
+):
+    """Простая beam search генерация с анти-повторами."""
+    device = spec.device
+    beams: List[Tuple[Tensor, float]] = [(torch.tensor([bos_id], device=device), 0.0)]
+    for _ in range(max_len):
+        new_beams: List[Tuple[Tensor, float]] = []
+        for seq, score in beams:
+            logits_seq, lm_logits, _ = model(spec, seq.unsqueeze(0))
+            log_probs = lm_logits[:, -1].log_softmax(-1).squeeze(0)
+
+            # repetition penalty
+            for tok in set(seq.tolist()):
+                log_probs[tok] /= repetition_penalty
+
+            topv, topi = log_probs.topk(beam_size)
+            for log_p, idx in zip(topv.tolist(), topi.tolist()):
+                next_seq = torch.cat([seq, torch.tensor([idx], device=device)])
+
+                # no repeat ngram constraint
+                if len(next_seq) >= no_repeat_ngram_size:
+                    ngram = tuple(next_seq[-no_repeat_ngram_size:].tolist())
+                    history = [
+                        tuple(next_seq[i : i + no_repeat_ngram_size].tolist())
+                        for i in range(len(next_seq) - no_repeat_ngram_size)
+                    ]
+                    if ngram in history:
+                        continue
+
+                new_beams.append((next_seq, score + log_p))
+
+        if not new_beams:
+            break
+
+        beams = sorted(
+            new_beams,
+            key=lambda x: x[1] / (len(x[0]) ** length_penalty),
+            reverse=True,
+        )[: beam_size]
+
+        if all(seq[-1].item() == eos_id for seq, _ in beams):
+            break
+
+    best = max(beams, key=lambda x: x[1] / (len(x[0]) ** length_penalty))[0]
+    return best.tolist()
 
 
 def load_checkpoint(checkpoint_path: str, model: CTMModel, 
@@ -534,7 +599,8 @@ def train(args: TrainArgs = TrainArgs(), resume_from: Optional[str] = None):
             lm_ce = F.cross_entropy(
                 lm_logits.reshape(-1, V),
                 ids.reshape(-1),
-                ignore_index=pad
+                ignore_index=pad,
+                label_smoothing=0.1,
             )
 
             loss = tp_loss + args.lm_loss_weight * lm_ce
@@ -595,7 +661,8 @@ def train(args: TrainArgs = TrainArgs(), resume_from: Optional[str] = None):
                     lm_logits.reshape(-1, V),
                     ids.reshape(-1),
                     ignore_index=pad,
-                    reduction="sum"
+                    reduction="sum",
+                    label_smoothing=0.1,
                 )
                 total_val_lm_ce += ce_sum.item()
                 ntoks = ids.ne(pad).sum().item()
