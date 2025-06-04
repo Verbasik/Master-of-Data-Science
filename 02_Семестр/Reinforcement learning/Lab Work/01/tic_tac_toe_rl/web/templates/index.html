@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Игра Крестики-нолики с ИИ на основе обучения с подкреплением">
+    <title>Крестики-нолики - ИИ с обучением</title>
+    <!-- Подключение стилей FontAwesome из CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Подключение пользовательских стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Шапка страницы -->
+    <header>
+        <h1>Крестики-нолики</h1>
+        <div class="subtitle">Игра против ИИ с обучением с подкреплением</div>
+    </header>
+
+    <!-- Основной контейнер игры -->
+    <main class="game-container">
+        <!-- Панель настроек игры -->
+        <section class="settings-panel">
+            <h2 class="settings-title">Настройки игры</h2>
+            <div class="setting-group">
+                <label for="difficulty" class="setting-label">Тип ИИ</label>
+                <select id="difficulty" class="select-control" aria-describedby="difficulty-description">
+                    <option value="random">Легкий (Случайный)</option>
+                    <option value="rule_based">Средний (На основе правил)</option>
+                    <option value="minimax">Сложный (Минимакс)</option>
+                    <option value="q_learning">Обучение с подкреплением (Обученный агент)</option>
+                </select>
+                <div class="difficulty-info">
+                    <span id="difficulty-description">Легкий: ИИ делает случайные ходы</span>
+                </div>
+            </div>
+            <div class="setting-group">
+                <label for="first-player" class="setting-label">Первый игрок</label>
+                <select id="first-player" class="select-control">
+                    <option value="human">Вы (Человек)</option>
+                    <option value="ai">ИИ</option>
+                    <option value="random">Случайный выбор</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Информация об игроках и статистика -->
+        <section class="game-info">
+            <div class="player-info" id="player-human">
+                <i class="player-icon fas fa-user" aria-hidden="true"></i>
+                <div class="player-name">Вы</div>
+                <div class="player-stats" id="human-stats">Побед: 0</div>
+            </div>
+            <div class="player-info" id="player-ai">
+                <i class="player-icon fas fa-robot" aria-hidden="true"></i>
+                <div class="player-name">ИИ</div>
+                <div class="player-stats" id="ai-stats">Побед: 0</div>
+            </div>
+        </section>
+
+        <!-- Игровое поле -->
+        <section class="board-container">
+            <div class="ai-thinking-border"></div>
+            <div class="board" id="game-board" role="grid" aria-label="Игровое поле Крестики-нолики">
+                <div class="cell" data-index="0" role="gridcell" tabindex="0" aria-label="Клетка 1"></div>
+                <div class="cell" data-index="1" role="gridcell" tabindex="0" aria-label="Клетка 2"></div>
+                <div class="cell" data-index="2" role="gridcell" tabindex="0" aria-label="Клетка 3"></div>
+                <div class="cell" data-index="3" role="gridcell" tabindex="0" aria-label="Клетка 4"></div>
+                <div class="cell" data-index="4" role="gridcell" tabindex="0" aria-label="Клетка 5"></div>
+                <div class="cell" data-index="5" role="gridcell" tabindex="0" aria-label="Клетка 6"></div>
+                <div class="cell" data-index="6" role="gridcell" tabindex="0" aria-label="Клетка 7"></div>
+                <div class="cell" data-index="7" role="gridcell" tabindex="0" aria-label="Клетка 8"></div>
+                <div class="cell" data-index="8" role="gridcell" tabindex="0" aria-label="Клетка 9"></div>
+            </div>
+            <!-- Оверлей ожидания хода ИИ -->
+            <div class="thinking-overlay" id="thinking-overlay" aria-live="polite">
+                <div class="spinner" aria-hidden="true"></div>
+                <div class="thinking-text">ИИ думает...</div>
+            </div>
+            <!-- Информация о ходе ИИ -->
+            <div class="ai-move-info" id="ai-move-info" aria-live="polite">ИИ поставил X на позицию 5</div>
+        </section>
+    </main>
+
+    <!-- Модальное окно результата игры -->
+    <div class="result-modal" id="result-modal" role="dialog" aria-labelledby="result-text" aria-hidden="true">
+        <div class="modal-content" id="modal-content">
+            <i class="result-icon" id="result-icon" aria-hidden="true"></i>
+            <h2 class="result-text" id="result-text">Вы выиграли!</h2>
+            <div class="result-message" id="result-message">Поздравляем с победой над ИИ!</div>
+            <button class="action-button" id="play-again-btn">Играть снова</button>
+        </div>
+    </div>
+
+    <!-- Подключение скрипта игры -->
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+</body>
+</html>
