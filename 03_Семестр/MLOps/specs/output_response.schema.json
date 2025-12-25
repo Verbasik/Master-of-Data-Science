@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.org/schemas/ocr-output-response.json",
+  "title": "OCR Output Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["request_id", "status", "timings"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "status": {"type": "string", "enum": ["ok", "partial", "error"]},
+    "message": {"type": "string"},
+    "language_detected": {"type": "string"},
+    "mode_used": {"type": "string", "enum": ["tiny", "small", "base", "large", "gundam", "gundam-master"]},
+    "tokens": {"type": "integer", "minimum": 0},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+    "text": {"type": "string"},
+    "layout": {
+      "type": "object",
+      "description": "Структурированная разметка (Markdown/HTML/JSON)",
+      "additionalProperties": true
+    },
+    "timings": {
+      "type": "object",
+      "required": ["preprocess_ms", "encode_ms", "decode_ms", "postprocess_ms", "serialize_ms", "total_ms"],
+      "properties": {
+        "queue_ms": {"type": "number", "minimum": 0},
+        "preprocess_ms": {"type": "number", "minimum": 0},
+        "encode_ms": {"type": "number", "minimum": 0},
+        "decode_ms": {"type": "number", "minimum": 0},
+        "postprocess_ms": {"type": "number", "minimum": 0},
+        "serialize_ms": {"type": "number", "minimum": 0},
+        "total_ms": {"type": "number", "minimum": 0}
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "detail"],
+        "properties": {
+          "code": {"type": "string"},
+          "detail": {"type": "string"},
+          "recoverable": {"type": "boolean"}
+        }
+      }
+    }
+  }
+}
+
