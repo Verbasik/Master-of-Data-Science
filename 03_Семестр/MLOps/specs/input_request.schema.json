@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://example.org/schemas/ocr-input-request.json",
+  "title": "OCR Input Request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["image"],
+  "properties": {
+    "request_id": {"type": "string"},
+    "user_id": {"type": "string"},
+    "doc_id": {"type": "string"},
+    "page_number": {"type": "integer", "minimum": 1},
+    "image": {
+      "description": "Ссылка (URL) или base64-строка",
+      "oneOf": [
+        {"type": "string", "format": "uri"},
+        {"type": "string", "contentEncoding": "base64"}
+      ]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": ["image/jpeg", "image/png", "image/tiff"]
+    },
+    "language_hint": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Подсказка языков, например: ['de', 'en']"
+    },
+    "mode_hint": {"type": "string", "enum": ["tiny", "small", "base", "large", "gundam", "gundam-master"]},
+    "output_format": {"type": "string", "enum": ["text", "markdown", "html", "json"]},
+    "return_layout": {"type": "boolean", "default": true},
+    "post_correction": {"type": "boolean", "default": true},
+    "timeout_ms": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "client_metadata": {"type": "object", "additionalProperties": true}
+  }
+}
+
